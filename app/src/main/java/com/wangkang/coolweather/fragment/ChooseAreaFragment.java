@@ -1,6 +1,7 @@
 package com.wangkang.coolweather.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.wifi.aware.PublishConfig;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wangkang.coolweather.R;
+import com.wangkang.coolweather.WeatherActivity;
 import com.wangkang.coolweather.db.City;
 import com.wangkang.coolweather.db.County;
 import com.wangkang.coolweather.db.Province;
@@ -89,6 +91,12 @@ public class ChooseAreaFragment extends Fragment {
             } else if (currentLevel == LEVEL_CITY) {
                 selecteCity = cityList.get(position);
                 queryCounties();
+            } else if (currentLevel == LEVEL_COUNTY) {
+                String weatherId = countyList.get(position).getWeatherId();
+                Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                intent.putExtra("weather_id", weatherId);
+                startActivity(intent);
+                getActivity().finish();
             }
         }));
         backButton.setOnClickListener(v -> {
